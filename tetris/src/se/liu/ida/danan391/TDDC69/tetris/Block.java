@@ -1,7 +1,5 @@
 package se.liu.ida.danan391.TDDC69.tetris;
 
-import java.util.Iterator;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pooze
