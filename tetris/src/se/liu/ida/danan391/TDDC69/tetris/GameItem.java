@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public abstract class GameItem extends BlockList {
     private int SIZE;
-    protected Block [] blocks;
+    private Block [] blocks;
     private Rotation currentRotation = Rotation.WEST;
     private int movedX = 0;
     private int movedY = 0;

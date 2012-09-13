@@ -11,16 +11,13 @@ public class SquareColor {
     public SquareColor() {
         this.color = this.randomColor();
     }
-
     public SquareColor(Color color) {
         this.color = color;
     }
-
     private Color randomColor() {
         int pick = new Random().nextInt(Color.values().length);
         return Color.values()[pick];
     }
-
     public Color getColor() {
         return this.color;
     }

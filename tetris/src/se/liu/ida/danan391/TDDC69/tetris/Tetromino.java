@@ -1,5 +1,9 @@
 package se.liu.ida.danan391.TDDC69.tetris;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
+import java.util.Random;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pooze
@@ -9,33 +13,57 @@ package se.liu.ida.danan391.TDDC69.tetris;
  */
 public class Tetromino extends GameItem {
 
-    //TODO: Need to generalize the Tetromino contructor
+    private static final int SIZE = 4;
+    private static final int numberOfBlocks = 3;
+    private int index;
     public Tetromino() {
         super(4, Rotation.WEST);
-        generateLBlock();
+        Random generator = new Random();
+        index = generator.nextInt(numberOfBlocks);
+        generateBlock(index);
+
+    }
+    // TODO: Check if this is the correct way to increase "index" before the method call
+    public void nextBlock() {
+        if (index < numberOfBlocks)
+            generateBlock(++index);
+        else{
+            index = 0;
+            generateBlock(index);
+        }
+
+    }
+    private void generateBlock(int BlockID) {
+        switch (BlockID) {
+            case 0:
+                generateIBlock();
+                break;
+            case 1:
+                generateLBlock();
+                break;
+            case 2:
+                generateOBlock();
+                break;
+            default:
+                break;
+        }
     }
     private void generateIBlock() {
-        this.blocks[0] = new Block(0,0);
-        this.blocks[1] = new Block(0,1);
-        this.blocks[2] = new Block(0,2);
-        this.blocks[3] = new Block(0,3);
+        getBlockList()[0] = new Block(0,0, Color.RED);
+        getBlockList()[1] = new Block(0,1, Color.RED);
+        getBlockList()[2] = new Block(0,2, Color.RED);
+        getBlockList()[3] = new Block(0,3, Color.RED);
     }
     private void generateLBlock() {
-        this.blocks[0] = new Block(0,0);
-        this.blocks[1] = new Block(0,1);
-        this.blocks[2] = new Block(1,0);
-        this.blocks[3] = new Block(2,0);
-        /*
-        super.add(new Block(0, 0));
-        super.add(new Block(0, 1));
-        super.add(new Block(1, 0));
-        super.add(new Block(2, 0));
-        */
+        getBlockList()[0] = new Block(0,0, Color.GREEN);
+        getBlockList()[1] = new Block(0,1, Color.GREEN);
+        getBlockList()[2] = new Block(1,0, Color.GREEN);
+        getBlockList()[3] = new Block(2,0, Color.GREEN);
     }
     private void generateOBlock() {
-        this.blocks[0] = new Block(0,0);
-        this.blocks[1] = new Block(0,1);
-        this.blocks[2] = new Block(1,0);
-        this.blocks[3] = new Block(1,1);
+        getBlockList()[0] = new Block(0,0, Color.BLUE);
+        getBlockList()[1] = new Block(0,1, Color.BLUE);
+        getBlockList()[2] = new Block(1,0, Color.BLUE);
+        getBlockList()[3] = new Block(1,1, Color.BLUE);
     }
 }

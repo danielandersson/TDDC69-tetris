@@ -1,7 +1,5 @@
 package se.liu.ida.danan391.TDDC69.tetris;
 
-import javax.swing.*;
-
 /**
  * ida.liu.se.danan391.TDDC69.tetris by pooze
  * 9/3/12
@@ -10,9 +8,10 @@ import javax.swing.*;
 public class GameBoard {
     public static final int ROWS = 10;
     public static final int COLUMS = 10;
-    protected GameItem tetromino = new Tetromino();
+    protected GameItem tetromino;
     public GameBoard() {
         System.out.println("+ Generated GameBoard");
+        tetromino = new Tetromino();
         tetromino.print();
         tetromino.rotate();
         tetromino.print();

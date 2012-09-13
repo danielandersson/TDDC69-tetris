@@ -12,10 +12,10 @@ public class Block extends SquareColor {
     private int YCoord;
     private SquareColor color;
 
-    public Block(int X, int Y) {
+    public Block(int X, int Y, Color color) {
         this.XCoord = X;
         this.YCoord = Y;
-        this.color = new SquareColor();
+        this.color = new SquareColor(color);
     }
     public int getXCoord() {
         return XCoord;
