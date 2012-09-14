@@ -11,19 +11,21 @@ import java.awt.event.ActionEvent;
 public class TestTetris {
     public static void main(String[] args) {
         final GameBoard gameBoard = new GameBoard();
-        final TextViewer textOutput = new TextViewer();
-        final TetrisFrame mainFrame = new TetrisFrame(gameBoard, textOutput.convertToText(gameBoard));
+        //final TextViewer textOutput = new TextViewer();
+        //final TetrisFrame mainFrame = new TetrisFrame(gameBoard, textOutput.convertToText(gameBoard));
+        final TetrisFrame mainFrame = new TetrisFrame(gameBoard);
         mainFrame.setVisible(true);
 
         final Action doOneStep = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameBoard.update();
-                mainFrame.setText(textOutput.convertToText(gameBoard));
+                mainFrame.repaint();
+                //mainFrame.setText(textOutput.convertToText(gameBoard));
             }
         };
 
-        final Timer clockTimer = new Timer(500, doOneStep);
+        final Timer clockTimer = new Timer(1000, doOneStep);
         clockTimer.setCoalesce(true);
         // Note: Just for debug
         // clockTimer.setLogTimers(true);

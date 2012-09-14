@@ -21,6 +21,15 @@ public abstract class GameItem extends BlockList {
         blocks = new Block[SIZE];
     }
 
+    public int getWidth() {
+        int biggestX = 0;
+        for (int i = 0; i < blocks.length; i++){
+            if (blocks[i].getXCoord() > biggestX)
+                biggestX = blocks[i].getXCoord();
+        }
+        return biggestX + 1;
+    }
+
     public int getMovedX() {
         return movedX;
     }
