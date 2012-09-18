@@ -1,7 +1,9 @@
 package se.liu.ida.danan391.TDDC69.tetris;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * ida.liu.se.danan391.TDDC69.tetris by pooze
@@ -11,24 +13,35 @@ import java.awt.event.ActionEvent;
 public class TestTetris {
     public static void main(String[] args) {
         final GameBoard gameBoard = new GameBoard();
-        //final TextViewer textOutput = new TextViewer();
-        //final TetrisFrame mainFrame = new TetrisFrame(gameBoard, textOutput.convertToText(gameBoard));
-        final TetrisFrame mainFrame = new TetrisFrame(gameBoard);
+
+        final GraphicalViewer graphicalViewer = new GraphicalViewer(gameBoard);
+
+        final TetrisFrame mainFrame = new TetrisFrame(gameBoard, graphicalViewer);
         mainFrame.setVisible(true);
+        gameBoard.addBoardListener(graphicalViewer);
+
 
         final Action doOneStep = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameBoard.update();
-                mainFrame.repaint();
-                //mainFrame.setText(textOutput.convertToText(gameBoard));
             }
         };
 
+        final Action moveDown = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameBoard.getFallingBlock().move(Direction.DOWN);
+                System.out.println("hej");
+            }
+        };
+
+        KeyStroke key = KeyStroke.getKeyStroke("ENTER");
+        graphicalViewer.getInputMap().put(key, "doMoveDownAction");
+        graphicalViewer.getActionMap().put("doMoveDownAction", moveDown);
+
         final Timer clockTimer = new Timer(1000, doOneStep);
         clockTimer.setCoalesce(true);
-        // Note: Just for debug
-        // clockTimer.setLogTimers(true);
         clockTimer.start();
 
 

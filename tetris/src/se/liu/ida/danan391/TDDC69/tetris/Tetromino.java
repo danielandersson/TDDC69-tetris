@@ -1,7 +1,5 @@
 package se.liu.ida.danan391.TDDC69.tetris;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.Random;
 
 /**
@@ -14,24 +12,15 @@ import java.util.Random;
 public class Tetromino extends GameItem {
 
     private static final int SIZE = 4;
-    private static final int numberOfBlocks = 3;
-    private int index;
+    private static final int NUMBER_OF_BLOCKS = 3;
     public Tetromino() {
         super(4, Rotation.WEST);
-        Random generator = new Random();
-        index = generator.nextInt(numberOfBlocks);
-        generateBlock(index);
+        generateBlock(randomBlockNumber());
 
     }
-    // TODO: Check if this is the correct way to increase "index" before the method call
-    public void nextBlock() {
-        if (index < numberOfBlocks)
-            generateBlock(++index);
-        else{
-            index = 0;
-            generateBlock(index);
-        }
-
+    private int randomBlockNumber(){
+        Random generator = new Random();
+        return generator.nextInt(NUMBER_OF_BLOCKS);
     }
     private void generateBlock(int BlockID) {
         switch (BlockID) {

@@ -9,7 +9,7 @@ import java.util.Arrays;
  *
  */
 
-public abstract class GameItem extends BlockList {
+public abstract class GameItem{
     private int SIZE;
     private Block [] blocks;
     private Rotation currentRotation = Rotation.WEST;
@@ -20,7 +20,6 @@ public abstract class GameItem extends BlockList {
         this.currentRotation = rotation;
         blocks = new Block[SIZE];
     }
-
     public int getWidth() {
         int biggestX = 0;
         for (int i = 0; i < blocks.length; i++){

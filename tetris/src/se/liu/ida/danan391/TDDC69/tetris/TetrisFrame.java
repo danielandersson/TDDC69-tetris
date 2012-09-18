@@ -19,39 +19,14 @@ public class TetrisFrame extends JFrame {
 
     private boolean pauseGUI = false;
 
-    public TetrisFrame(GameBoard game) {
+    public TetrisFrame(GameBoard game, final JComponent viewer) {
         super("Tetris");
         super.setLayout(new BorderLayout());
-        final GraphicalViewer graphicalViewer = new GraphicalViewer(game);
+
         this.status = new JLabel("Ready!");
         this.status.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
         super.add(createButtonPanel(), BorderLayout.NORTH);
-        super.add(graphicalViewer, BorderLayout.CENTER);
-        super.add(status, BorderLayout.SOUTH);
-        super.setLocationRelativeTo(null);
-        super.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        final JFrame close = new JFrame();
-        super.addWindowListener(new WindowAdapter(){
-            public void windowClosing(final WindowEvent e){
-                int answer = JOptionPane.showConfirmDialog
-                        (close, "Do you wanna quit?", "Quit?", JOptionPane.YES_NO_OPTION);
-                if (answer == JOptionPane.YES_OPTION)
-                    System.exit(0);
-            }
-        });
-        this.game = game;
-        super.pack();
-    }
-    // TODO: Remove this TetrisFrame method, since we dont use it.
-    public TetrisFrame(GameBoard game, String initText) {
-        super("Tetris");
-        super.setLayout(new BorderLayout());
-        this.textArea = new JTextArea(initText);
-        this.textArea.setBorder(BorderFactory.createEtchedBorder());
-        this.status = new JLabel("Ready!");
-        this.status.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
-        super.add(createButtonPanel(), BorderLayout.NORTH);
-        super.add(textArea, BorderLayout.CENTER);
+        super.add(viewer, BorderLayout.CENTER);
         super.add(status, BorderLayout.SOUTH);
         super.setLocationRelativeTo(null);
         super.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

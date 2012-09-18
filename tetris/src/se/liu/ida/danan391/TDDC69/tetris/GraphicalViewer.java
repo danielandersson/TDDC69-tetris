@@ -6,59 +6,52 @@ import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 
-public class GraphicalViewer extends JComponent {
+public class GraphicalViewer extends JComponent implements BoardListener {
     private static final int width = 300;
     private static final int height = 600;
 
-    private static final int gameItemWidth = width/10;
-    private static final int gameItemHeight = height/20;
+    private static final int GAMEITEMWIDTH = width/10;
+    private static final int GAMEITEMHEIGHT = height/20;
 
     private GameBoard game;
 
     public GraphicalViewer(GameBoard game) {
         this.game = game;
     }
-
     public Dimension getPreferredSize() {
 
         return new Dimension(width, height);
     }
-
-
     public void paintComponent(final Graphics g) {
         final Graphics2D g2 = (Graphics2D)g;
         paintBG(g2);
         paintFallingBlock(g2);
         paintPlacedBlock(g2);
     }
-
     private void paintBG(final Graphics2D g2) {
-
+        g2.setColor(Color.WHITE);
+        g2.fill(new Rectangle2D.Double(0,0,this.getWidth(),this.getHeight()));
     }
-
     private void paintFallingBlock(final Graphics2D g2) {
-        for (Block block : game.fallingBlock.getBlockList()){
+        for (Block block : game.getFallingBlock().getBlockList()){
             g2.setColor(translateColor(block.getColor()));
-            int calcX = width/2- (gameItemWidth*game.fallingBlock.getWidth())/2 + gameItemWidth*block.getXCoord();
-            int calcY = gameItemHeight*block.getYCoord()-gameItemHeight*game.fallingBlock.getMovedY();
-            g2.fill(new Rectangle2D.Double(calcX, calcY, gameItemWidth, gameItemHeight));
+            int calcX = width/2- (GAMEITEMWIDTH* game.getFallingBlock().getWidth())/2 + GAMEITEMWIDTH*block.getXCoord();
+            int calcY = GAMEITEMHEIGHT*block.getYCoord()-GAMEITEMHEIGHT* game.getFallingBlock().getMovedY();
+            g2.fill(new Rectangle2D.Double(calcX, calcY, GAMEITEMWIDTH, GAMEITEMHEIGHT));
         }
     }
-
     private void paintPlacedBlock(final Graphics2D g2) {
         for (int i = 0; i < game.ROWS; i++) {
             for (int j = 0; j < game.COLUMS; j++) {
-                if (game.placedBlocks[i][j] != null) {
-                    g2.setColor(translateColor(game.placedBlocks[i][j]));
-                    int calcX = j;
-                    int calcY = i;
-                    g2.fill(new Rectangle2D.Double(calcX, calcY, gameItemWidth, gameItemHeight));
+                if (game.getPlacedBlocks()[i][j] != null) {
+                    g2.setColor(translateColor(game.getPlacedBlocks()[i][j]));
+                    int calcX = width/2 + (j-1)*GAMEITEMWIDTH;
+                    int calcY = i*GAMEITEMHEIGHT;
+                    g2.fill(new Rectangle2D.Double(calcX, calcY, GAMEITEMWIDTH, GAMEITEMHEIGHT));
                 }
             }
         }
     }
-
-
     private Color translateColor(se.liu.ida.danan391.TDDC69.tetris.Color color) {
         switch (color) {
             case BLACK:
@@ -74,5 +67,9 @@ public class GraphicalViewer extends JComponent {
             default:
                 return Color.GRAY;
         }
+    }
+    @Override
+    public void boardChanged() {
+        this.repaint();
     }
 }

@@ -6,8 +6,9 @@ package se.liu.ida.danan391.TDDC69.tetris;
  * Usage:
  */
 
-public class TextViewer {
+public class TextViewer  {
     private static final char SPACE = (char)Integer.parseInt("3000",16);
+
     public String convertToText(GameBoard game) {
         StringBuilder outString = new StringBuilder();
         String title = "Tetris";
@@ -22,20 +23,13 @@ public class TextViewer {
         for (int i = 0; i < game.ROWS; i++) {
             outString.append('|');
             for (int j = game.COLUMS; j > 0; j--) {
-                if (game.fallingBlock.exist(game.COLUMS/2 + 1 - j - game.fallingBlock.getMovedX(), -1*game.fallingBlock.getMovedY() - i))
-                    outString.append(blockPrint(game.fallingBlock.getBlock(game.COLUMS / 2 + 1 - j - game.fallingBlock.getMovedX(), -1 * game.fallingBlock.getMovedY() - i)));
+                if (game.getFallingBlock().exist(game.COLUMS / 2 + 1 - j - game.getFallingBlock().getMovedX(), -1 * game.getFallingBlock().getMovedY() - i))
+                    outString.append(blockPrint(game.getFallingBlock().getBlock(game.COLUMS / 2 + 1 - j - game.getFallingBlock().getMovedX(), -1 * game.getFallingBlock().getMovedY() - i)));
                 else
                     outString.append(SPACE);
             }
             outString.append("|\n");
         }
-        /* This is the section for the bottom line.
-        outString.append('+');
-        for (int i = 0; i < game.COLUMS; i++) {
-            outString.append('-');
-        }
-        outString.append("+\n");
-        */
         return outString.toString();
     }
     private Character blockPrint(Block block) {
@@ -70,7 +64,7 @@ public class TextViewer {
         for (int i = 0; i < game.ROWS; i++) {
             System.out.print("|");
             for (int j = game.COLUMS; j > 0; j--) {
-                if (game.fallingBlock.exist(game.COLUMS/2 + 1 - j - game.fallingBlock.getMovedX(), -1*game.fallingBlock.getMovedY() - i))
+                if (game.getFallingBlock().exist(game.COLUMS / 2 + 1 - j - game.getFallingBlock().getMovedX(), -1 * game.getFallingBlock().getMovedY() - i))
                 {
                     System.out.print('#');
                 }
