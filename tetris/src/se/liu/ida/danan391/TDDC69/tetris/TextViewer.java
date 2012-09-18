@@ -22,8 +22,8 @@ public class TextViewer {
         for (int i = 0; i < game.ROWS; i++) {
             outString.append('|');
             for (int j = game.COLUMS; j > 0; j--) {
-                if (game.tetromino.exist(game.COLUMS/2 + 1 - j - game.tetromino.getMovedX(), -1*game.tetromino.getMovedY() - i))
-                    outString.append(blockPrint(game.tetromino.getBlock(game.COLUMS / 2 + 1 - j - game.tetromino.getMovedX(), -1 * game.tetromino.getMovedY() - i)));
+                if (game.fallingBlock.exist(game.COLUMS/2 + 1 - j - game.fallingBlock.getMovedX(), -1*game.fallingBlock.getMovedY() - i))
+                    outString.append(blockPrint(game.fallingBlock.getBlock(game.COLUMS / 2 + 1 - j - game.fallingBlock.getMovedX(), -1 * game.fallingBlock.getMovedY() - i)));
                 else
                     outString.append(SPACE);
             }
@@ -70,7 +70,7 @@ public class TextViewer {
         for (int i = 0; i < game.ROWS; i++) {
             System.out.print("|");
             for (int j = game.COLUMS; j > 0; j--) {
-                if (game.tetromino.exist(game.COLUMS/2 + 1 - j - game.tetromino.getMovedX(), -1*game.tetromino.getMovedY() - i))
+                if (game.fallingBlock.exist(game.COLUMS/2 + 1 - j - game.fallingBlock.getMovedX(), -1*game.fallingBlock.getMovedY() - i))
                 {
                     System.out.print('#');
                 }

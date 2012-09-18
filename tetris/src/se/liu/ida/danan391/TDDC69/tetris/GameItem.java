@@ -29,7 +29,14 @@ public abstract class GameItem extends BlockList {
         }
         return biggestX + 1;
     }
-
+    public int getHeight() {
+        int biggestY = 0;
+        for (int i = 0; i < blocks.length; i++){
+            if (blocks[i].getYCoord() > biggestY)
+                biggestY = blocks[i].getYCoord();
+        }
+        return biggestY + 1;
+    }
     public int getMovedX() {
         return movedX;
     }
@@ -134,7 +141,8 @@ public abstract class GameItem extends BlockList {
         return false;
     }
     public boolean inside() {
+        if (movedY <= -GameBoard.ROWS + getHeight())
+            return false;
         return true;
     }
-
 }

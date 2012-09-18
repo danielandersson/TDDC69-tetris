@@ -24,16 +24,16 @@ public class TetrominoL {
     public void move(Direction direction) {
         switch (direction) {
             case DOWN:
-                System.out.println("Move the tetromino DOWN");
+                System.out.println("Move the fallingBlock DOWN");
                 break;
             case RIGHT:
-                System.out.println("Move the tetromino RIGTH");
+                System.out.println("Move the fallingBlock RIGTH");
                 break;
             case LEFT:
-                System.out.println("Move the tetromino LEFT");
+                System.out.println("Move the fallingBlock LEFT");
                 break;
             case UP:
-                System.out.println("Move the tetromino UP");
+                System.out.println("Move the fallingBlock UP");
                 break;
         }
     }

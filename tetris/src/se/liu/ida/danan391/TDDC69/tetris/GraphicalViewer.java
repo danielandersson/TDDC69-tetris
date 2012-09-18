@@ -28,23 +28,36 @@ public class GraphicalViewer extends JComponent {
     public void paintComponent(final Graphics g) {
         final Graphics2D g2 = (Graphics2D)g;
         paintBG(g2);
-        paintGameItem(g2);
+        paintFallingBlock(g2);
+        paintPlacedBlock(g2);
     }
 
     private void paintBG(final Graphics2D g2) {
 
     }
 
-    private void paintGameItem(final Graphics2D g2) {
-        System.out.println("NEW");
-        for (Block block : game.tetromino.getBlockList()){
+    private void paintFallingBlock(final Graphics2D g2) {
+        for (Block block : game.fallingBlock.getBlockList()){
             g2.setColor(translateColor(block.getColor()));
-            int calcX = width/2- (gameItemWidth*game.tetromino.getWidth())/2 + gameItemWidth*block.getXCoord();
-            int calcY = gameItemHeight*block.getYCoord()-gameItemHeight*game.tetromino.getMovedY();
-            System.out.println(block.getXCoord() + " " + block.getYCoord() + " X:" + calcX + " Y:" + calcY);
-            g2.draw(new Rectangle2D.Double(calcX, calcY, gameItemWidth, gameItemHeight));
+            int calcX = width/2- (gameItemWidth*game.fallingBlock.getWidth())/2 + gameItemWidth*block.getXCoord();
+            int calcY = gameItemHeight*block.getYCoord()-gameItemHeight*game.fallingBlock.getMovedY();
+            g2.fill(new Rectangle2D.Double(calcX, calcY, gameItemWidth, gameItemHeight));
         }
     }
+
+    private void paintPlacedBlock(final Graphics2D g2) {
+        for (int i = 0; i < game.ROWS; i++) {
+            for (int j = 0; j < game.COLUMS; j++) {
+                if (game.placedBlocks[i][j] != null) {
+                    g2.setColor(translateColor(game.placedBlocks[i][j]));
+                    int calcX = j;
+                    int calcY = i;
+                    g2.fill(new Rectangle2D.Double(calcX, calcY, gameItemWidth, gameItemHeight));
+                }
+            }
+        }
+    }
+
 
     private Color translateColor(se.liu.ida.danan391.TDDC69.tetris.Color color) {
         switch (color) {

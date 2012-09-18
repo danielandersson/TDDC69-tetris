@@ -42,7 +42,7 @@ public class TetrisFrame extends JFrame {
         this.game = game;
         super.pack();
     }
-
+    // TODO: Remove this TetrisFrame method, since we dont use it.
     public TetrisFrame(GameBoard game, String initText) {
         super("Tetris");
         super.setLayout(new BorderLayout());
@@ -70,6 +70,7 @@ public class TetrisFrame extends JFrame {
     public boolean isPauseGUI() {
         return pauseGUI;
     }
+    // TODO: Remove this method.
     public void setText(String text) {
         textArea.setText(text);
     }
