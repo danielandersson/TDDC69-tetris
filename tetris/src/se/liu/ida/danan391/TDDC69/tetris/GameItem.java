@@ -1,5 +1,7 @@
 package se.liu.ida.danan391.TDDC69.tetris;
 
+import sun.org.mozilla.javascript.internal.ast.BreakStatement;
+
 import java.util.Arrays;
 
 /**
@@ -23,16 +25,16 @@ public abstract class GameItem{
     public int getWidth() {
         int biggestX = 0;
         for (int i = 0; i < blocks.length; i++){
-            if (blocks[i].getXCoord() > biggestX)
-                biggestX = blocks[i].getXCoord();
+            if (Math.abs(blocks[i].getXCoord()) > biggestX)
+                biggestX = Math.abs(blocks[i].getXCoord());
         }
         return biggestX + 1;
     }
     public int getHeight() {
         int biggestY = 0;
         for (int i = 0; i < blocks.length; i++){
-            if (blocks[i].getYCoord() > biggestY)
-                biggestY = blocks[i].getYCoord();
+            if (Math.abs(blocks[i].getYCoord()) > biggestY)
+                biggestY = Math.abs(blocks[i].getYCoord());
         }
         return biggestY + 1;
     }
@@ -47,7 +49,7 @@ public abstract class GameItem{
     }
     public Block getBlock(int XCoord, int YCoord) {
         int i =0;
-        while(blocks[i].getXCoord() != XCoord && blocks[i].getXCoord() != XCoord) {
+        while(blocks[i].getXCoord() != XCoord && blocks[i].getYCoord() != YCoord) {
             i++;
         }
         return blocks[i];
@@ -61,10 +63,10 @@ public abstract class GameItem{
                 this.movedY += 1;
                 break;
             case RIGHT:
-                this.movedX += 1;
+                this.movedX -= 1;
                 break;
             case LEFT:
-                this.movedX -= 1;
+                this.movedX += 1;
                 break;
         }
         return true;
@@ -139,8 +141,36 @@ public abstract class GameItem{
         }
         return false;
     }
+    public boolean canMakeMove(Direction dir, Color [] [] placedBlocks) {
+        int XCoord, YCoord, Y = 0,X = 0;
+        switch (dir) {
+            case DOWN:
+                Y = 1;
+                break;
+            case UP:
+                Y = -1;
+                break;
+            case LEFT:
+                X = -1;
+                break;
+            case RIGHT:
+                X = 1;
+        }
+        for (Block block : getBlockList()){
+            YCoord = block.getYCoord()- getMovedY();
+            YCoord += Y;
+            XCoord = (int) (GameBoard.COLUMS / 2 + block.getXCoord() - Math.floor(getWidth() / 2) - getMovedX());
+            XCoord += X;
+
+            if (XCoord < 0 || XCoord >= 10 || YCoord > 23)
+                return false;
+            if (placedBlocks[YCoord][XCoord] != null)
+                return false;
+        }
+        return true;
+    }
     public boolean inside() {
-        if (movedY <= -GameBoard.ROWS + getHeight())
+        if (movedY <= -GameBoard.ROWS + getHeight() && movedX <= GameBoard.COLUMS + getWidth())
             return false;
         return true;
     }

@@ -13,34 +13,20 @@ import java.awt.event.KeyEvent;
 public class TestTetris {
     public static void main(String[] args) {
         final GameBoard gameBoard = new GameBoard();
-
-        final GraphicalViewer graphicalViewer = new GraphicalViewer(gameBoard);
-
-        final TetrisFrame mainFrame = new TetrisFrame(gameBoard, graphicalViewer);
+        final TetrisFrame mainFrame = new TetrisFrame(gameBoard);
         mainFrame.setVisible(true);
-        gameBoard.addBoardListener(graphicalViewer);
-
-
+        final Timer clockTimer;
         final Action doOneStep = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameBoard.update();
+                if (!gameBoard.gameOver())
+                    gameBoard.update();
+                else {
+                    mainFrame.setStatus("GAME OVER!");
+                }
             }
         };
-
-        final Action moveDown = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameBoard.getFallingBlock().move(Direction.DOWN);
-                System.out.println("hej");
-            }
-        };
-
-        KeyStroke key = KeyStroke.getKeyStroke("ENTER");
-        graphicalViewer.getInputMap().put(key, "doMoveDownAction");
-        graphicalViewer.getActionMap().put("doMoveDownAction", moveDown);
-
-        final Timer clockTimer = new Timer(1000, doOneStep);
+        clockTimer = new Timer(250, doOneStep);
         clockTimer.setCoalesce(true);
         clockTimer.start();
 

@@ -29,14 +29,14 @@ public class GraphicalViewer extends JComponent implements BoardListener {
         paintPlacedBlock(g2);
     }
     private void paintBG(final Graphics2D g2) {
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
         g2.fill(new Rectangle2D.Double(0,0,this.getWidth(),this.getHeight()));
     }
     private void paintFallingBlock(final Graphics2D g2) {
         for (Block block : game.getFallingBlock().getBlockList()){
             g2.setColor(translateColor(block.getColor()));
-            int calcX = width/2- (GAMEITEMWIDTH* game.getFallingBlock().getWidth())/2 + GAMEITEMWIDTH*block.getXCoord();
-            int calcY = GAMEITEMHEIGHT*block.getYCoord()-GAMEITEMHEIGHT* game.getFallingBlock().getMovedY();
+            int calcX = ((int) (width/2 + GAMEITEMWIDTH*block.getXCoord() - GAMEITEMWIDTH*Math.floor(game.getFallingBlock().getWidth() / 2) - GAMEITEMWIDTH*game.getFallingBlock().getMovedX()));
+            int calcY = GAMEITEMHEIGHT*block.getYCoord()-GAMEITEMHEIGHT*game.getFallingBlock().getMovedY()-4*GAMEITEMHEIGHT;
             g2.fill(new Rectangle2D.Double(calcX, calcY, GAMEITEMWIDTH, GAMEITEMHEIGHT));
         }
     }
@@ -45,8 +45,8 @@ public class GraphicalViewer extends JComponent implements BoardListener {
             for (int j = 0; j < game.COLUMS; j++) {
                 if (game.getPlacedBlocks()[i][j] != null) {
                     g2.setColor(translateColor(game.getPlacedBlocks()[i][j]));
-                    int calcX = width/2 + (j-1)*GAMEITEMWIDTH;
-                    int calcY = i*GAMEITEMHEIGHT;
+                    int calcX = j*GAMEITEMWIDTH;
+                    int calcY = (i-4)*GAMEITEMHEIGHT;
                     g2.fill(new Rectangle2D.Double(calcX, calcY, GAMEITEMWIDTH, GAMEITEMHEIGHT));
                 }
             }
