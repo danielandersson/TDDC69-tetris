@@ -13,9 +13,9 @@ import java.awt.event.WindowEvent;
  * Usage:
  */
 public class TetrisFrame extends JFrame {
-    private GameBoard game;
+    private final GameBoard game;
     private JTextArea textArea;
-    private JLabel status;
+    private final JLabel status;
     private GraphicalViewer graphicalViewer;
 
     private boolean pauseGUI = false;
@@ -77,12 +77,28 @@ public class TetrisFrame extends JFrame {
         super.setLayout(new BorderLayout());
         this.status = new JLabel("Ready!");
         this.status.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        final JFrame close = new JFrame();
         //super.add(createButtonPanel(), BorderLayout.NORTH);
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("File");
+        menuBar.add(menu);
+        JMenuItem menuItem = new JMenuItem("Quit");
+        menuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int answer = JOptionPane.showConfirmDialog
+                        (close, "Do you wanna quit?", "Quit?", JOptionPane.YES_NO_OPTION);
+                if (answer == JOptionPane.YES_OPTION)
+                    System.exit(0);
+            }
+        });
+        menu.add(menuItem);
+        super.setJMenuBar(menuBar);
+
+
         super.add(graphicalViewer, BorderLayout.CENTER);
         super.add(status, BorderLayout.SOUTH);
         super.setLocationRelativeTo(null);
         super.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        final JFrame close = new JFrame();
         super.addWindowListener(new WindowAdapter(){
             public void windowClosing(final WindowEvent e){
                 int answer = JOptionPane.showConfirmDialog

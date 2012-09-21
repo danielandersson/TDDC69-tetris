@@ -11,15 +11,14 @@ import java.util.Random;
  */
 public class Tetromino extends GameItem {
 
-    private static final int SIZE = 4;
-    private static final int NUMBER_OF_BLOCKS = 4;
+    private static final int NUMBER_OF_BLOCKS = 5;
     public Tetromino() {
         super(4, Rotation.WEST);
         generateBlock(randomBlockNumber());
         //generateBlock(2);
     }
     private int randomBlockNumber(){
-        Random generator = new Random();
+        Random generator = new Random(System.currentTimeMillis());
         return generator.nextInt(NUMBER_OF_BLOCKS);
     }
     private void generateBlock(int BlockID) {
@@ -35,6 +34,8 @@ public class Tetromino extends GameItem {
                 break;
             case 3:
                 generateFBlock();
+            case 4:
+                generateSBlock();
             default:
                 break;
         }
@@ -62,5 +63,11 @@ public class Tetromino extends GameItem {
         getBlockList()[1] = new Block(0,1, Color.YELLOW);
         getBlockList()[2] = new Block(0,2, Color.YELLOW);
         getBlockList()[3] = new Block(1,1, Color.YELLOW);
+    }
+    private void generateSBlock() {
+        getBlockList()[0] = new Block(0,0, Color.PINK);
+        getBlockList()[1] = new Block(0,1, Color.PINK);
+        getBlockList()[2] = new Block(1,1, Color.PINK);
+        getBlockList()[3] = new Block(1,2, Color.PINK);
     }
 }

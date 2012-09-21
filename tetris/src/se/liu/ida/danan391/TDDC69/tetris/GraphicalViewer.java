@@ -13,7 +13,7 @@ public class GraphicalViewer extends JComponent implements BoardListener {
     private static final int GAMEITEMWIDTH = width/10;
     private static final int GAMEITEMHEIGHT = height/20;
 
-    private GameBoard game;
+    private final GameBoard game;
 
     public GraphicalViewer(GameBoard game) {
         this.game = game;
@@ -64,6 +64,8 @@ public class GraphicalViewer extends JComponent implements BoardListener {
                 return Color.RED;
             case YELLOW:
                 return Color.YELLOW;
+            case PINK:
+                return Color.PINK;
             default:
                 return Color.GRAY;
         }

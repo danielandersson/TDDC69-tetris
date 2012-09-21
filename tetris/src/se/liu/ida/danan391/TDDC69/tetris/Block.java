@@ -10,7 +10,7 @@ package se.liu.ida.danan391.TDDC69.tetris;
 public class Block extends SquareColor {
     private int XCoord;
     private int YCoord;
-    private SquareColor color;
+    private final SquareColor color;
 
     public Block(int X, int Y, Color color) {
         this.XCoord = X;

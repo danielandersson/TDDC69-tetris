@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class GameBoard {
     public static final int ROWS = 24;
     public static final int COLUMS = 10;
-    private Tetromino getFallingBlock;
-    private Color [][] placedBlocks = new Color[ROWS][COLUMS];
-    private ArrayList<BoardListener> BoardListeners = new ArrayList<BoardListener>();
+    private Tetromino fallingBlock;
+    private final Color [][] placedBlocks = new Color[ROWS][COLUMS];
+    private final ArrayList<BoardListener> BoardListeners = new ArrayList<BoardListener>();
     public GameBoard() {
         System.out.println("+ Generated GameBoard");
-        getFallingBlock = new Tetromino();
+        fallingBlock = new Tetromino();
         getFallingBlock().print();
         getFallingBlock().rotate();
         getFallingBlock().print();
@@ -58,19 +58,19 @@ public class GameBoard {
     }
 
     public void update() {
-        if (getFallingBlock().inside() && getFallingBlock.canMakeMove(Direction.DOWN, placedBlocks))
+        if (getFallingBlock().inside() && fallingBlock.canMakeMove(Direction.DOWN, placedBlocks))
             getFallingBlock().move(Direction.DOWN);
         else {
             for (Block block : getFallingBlock().getBlockList()){
-                getPlacedBlocks()[block.getYCoord()- getFallingBlock().getMovedY()][((int) (GameBoard.COLUMS / 2 + block.getXCoord() - Math.floor(getFallingBlock.getWidth() / 2) - getFallingBlock().getMovedX()))] = block.getColor();
+                getPlacedBlocks()[block.getYCoord()- getFallingBlock().getMovedY()][((int) (GameBoard.COLUMS / 2 + block.getXCoord() - Math.floor(fallingBlock.getWidth() / 2) - getFallingBlock().getMovedX()))] = block.getColor();
             }
             removeFull();
-            getFallingBlock = new Tetromino();
+            fallingBlock = new Tetromino();
         }
         notifyListeners();
     }
     public GameItem getFallingBlock() {
-        return getFallingBlock;
+        return fallingBlock;
     }
     public Color[][] getPlacedBlocks() {
         return placedBlocks;

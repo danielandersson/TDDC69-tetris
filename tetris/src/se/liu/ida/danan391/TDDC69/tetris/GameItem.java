@@ -12,8 +12,8 @@ import java.util.Arrays;
  */
 
 public abstract class GameItem{
-    private int SIZE;
-    private Block [] blocks;
+    private final int SIZE;
+    private final Block [] blocks;
     private Rotation currentRotation = Rotation.WEST;
     private int movedX = 0;
     private int movedY = 0;
@@ -170,8 +170,6 @@ public abstract class GameItem{
         return true;
     }
     public boolean inside() {
-        if (movedY <= -GameBoard.ROWS + getHeight() && movedX <= GameBoard.COLUMS + getWidth())
-            return false;
-        return true;
+        return !(movedY <= -GameBoard.ROWS + getHeight() && movedX <= GameBoard.COLUMS + getWidth());
     }
 }

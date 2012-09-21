@@ -6,7 +6,7 @@ import java.util.Random;
  * Usage:
  */
 public class SquareColor {
-    private Color color;
+    private final Color color;
 
     public SquareColor() {
         this.color = this.randomColor();
